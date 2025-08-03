@@ -1,0 +1,182 @@
+# Reading Libraries
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# Reading the dataset
+
+tesla <- read.csv("D:\\data analyst\\R\\PROJECTS\\R for Analytics\\Project 1\\Dataset\\Electric_Vehicle_Population_Data.csv")
+
+
+# Data Cleaning Section
+tesla_cleaned <- tesla |>
+  rename_all(~ gsub("\\.", "_", .))
+
+colnames(tesla_cleaned)[colnames(tesla_cleaned) == "VIN__1_10_"] <- "VIN__1_10"
+
+tesla_cleaned <- tesla_cleaned |>
+  mutate(Tesla = ifelse(
+    Make == "TESLA",
+    "TESLA",
+    "OTHER"
+  ))
+
+unique(tesla_cleaned$Tesla)
+#Question 1: What percentage of EVs in Washington are Teslas?
+
+total_vehicles <- nrow(tesla_cleaned)
+tesla_vehicles <- tesla_cleaned |>
+  filter(Tesla == "TESLA") |>
+  nrow()
+
+tesla_market_share <- round(tesla_vehicles / total_vehicles * 100 , 1)
+market_df <- data.frame(
+  Group = c("TESLA", "OTHER"),
+  Market_Share = c(tesla_market_share, 100 - tesla_market_share)
+)
+market_df <- market_df |>
+  mutate(
+    Label = paste0(Market_Share, "%"),
+    ypos = cumsum(Market_Share) - 0.5 * Market_Share
+  )
+
+ggplot(market_df, aes(x = "", y = Market_Share, fill = Group)) +
+  geom_col() +
+  coord_polar("y") +
+  geom_text(
+    aes(
+      y = ypos,
+      label = Label)
+  ) +
+  labs(
+    title = "Tesla Market Share in Washington (%)"
+  ) +
+  theme_void()
+ 
+#  2. Top Tesla Models Selling in the area
+# - How much are we making from these models?
+  
+tesla_model_sold <- tesla_cleaned |>
+  filter(Tesla == "TESLA") |>
+  group_by(Make, Model) |>
+  summarize(SOLD = n(), .groups = "drop") |>
+  arrange(SOLD)
+
+# Viz 2
+ggplot(tesla_model_sold, aes(x = reorder(Model, SOLD), y = SOLD)) +
+  geom_col(fill = "dodgerblue") +
+  coord_flip() +
+  labs(
+    title = "Tesla Models Sold - All time",
+    x = "",
+    y = "Number of Units Sold"
+  ) +
+  theme_minimal()
+
+
+# ADD in
+tesla_model_sold_by_year <- tesla_cleaned |>
+  filter(Tesla == "TESLA") |>
+  group_by(Model_Year) |>
+  summarize(Count = n()) |>
+  arrange(Model_Year)
+
+#viz 3
+ggplot(tesla_model_sold_by_year, aes(x = Model_Year, y = Count)) +
+  geom_line(color = "dodgerblue", size = 1.1) +
+  geom_point(color = "red") +
+  labs(
+    title = "Tesla Vehicles Sold by Year",
+    x = "Model Year",
+    y = "Number of Sold"
+  ) +
+  theme_minimal()
+
+
+tesla_cleaned |>
+  filter(Tesla == "TESLA" & Model == "ROADSTER") |>
+  group_by(Model_Year) |>
+  summarize(SOLD = n(), .groups = "drop")
+
+# - How much are we making from these models?
+msrb_by_year <- tesla_cleaned |>
+  filter(Tesla == "TESLA", Base_MSRP >0) |>
+  group_by(Model_Year, Make, Model) |>
+  summarize(min(Base_MSRP), .groups = "drop") |>
+  arrange(Model_Year, Make, Model)
+
+# 3. Tesla vs Competitors - Range and MSRP
+#    - AVG and Median
+
+# AVG range
+
+# viz 4 Avg_Range_For_EVs
+ggplot(Avg_Range_For_EVs, aes(x = Tesla, y = Avg_Range, fill =  Tesla)) +
+  geom_col() +
+  labs(
+    title = "Average Electric Range (BEV)",
+    x = "Tesla vs. Others",
+    y = "Average Range"
+  ) + 
+  theme_minimal()
+
+# Avg msrp 
+# viz 5 Avg_MRSP_For_EVs
+ggplot(Avg_Range_For_EVs, aes(x = Tesla, y = Avg_Msrp, fill =  Tesla)) +
+  geom_col() +
+  labs(
+    title = "Average Electric MSRP (BEV)",
+    x = "Tesla vs. Others",
+    y = "Average MSRP"
+  ) + 
+  theme_minimal()
+
+
+# 4. PHEV vs BEV Trends
+bhev_bev <- tesla_cleaned |>
+  group_by(Model_Year, Electric_Vehicle_Type) |>
+  summarize(Count = n(), .groups = "drop")
+
+#viz 6
+ggplot(bhev_bev, aes(x = Model_Year, y = Count, color = Electric_Vehicle_Type)) +
+  geom_line(size = 1.1) +
+  geom_point(size = 2) +
+  labs(
+    title = "PHEV vs BEV Trends over Time",
+    x = "Model Year",
+    y = "Number of Sold",
+    color = "Electric Vehicle Type"
+  ) +
+  theme_minimal()
+
+
+
+# 5. Top Electric Utilities in Washington for Tesla
+
+utility_count_for_tesla <- tesla_cleaned |>
+  filter(Tesla == "TESLA") |>
+  group_by(Electric_Utility) |>
+  summarize(Count = n(), .groups = "drop") |>
+  slice_max(Count, n=5)
+
+ggplot(utility_count_for_tesla, aes(x = reorder(Electric_Utility, Count), y = Count)) +
+  geom_col(color = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Top Electric Utilities for Tesla in Washington",
+    x = "",
+    y = "Count"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.title.y = element_text(size = 4)
+  )
+
+
+#END of EDA
+
+write.csv(tesla_cleaned, "D:\\data analyst\\R\\PROJECTS\\R for Analytics\\Project 1\\Dataset\\Electric_Vehicle_Population_Data_cleaned.csv", row.names = FALSE)
+
+
+
+
