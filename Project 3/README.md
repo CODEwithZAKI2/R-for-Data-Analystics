@@ -258,6 +258,6 @@ This analysis provides actionable insights that can help reduce turnover by:
 **Project completed as part of R for Data Analytics portfolio development**
 
 **Author**: Eng.Omar
-**Contact me**: [LinkedIn](www.linkedin.com/in/codewithzaki)  
+**LinkedIn**: [www.linkedin.com/in/codewithzaki](https://www.linkedin.com/in/codewithzaki) 
 **Date**: August 2025  
 **Tools**: R, RStudio, ggplot2, dplyr
