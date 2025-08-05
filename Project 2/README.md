@@ -415,6 +415,6 @@ Global-Superstore-Analysis/
 ---
 
 **Author**: Eng.Omar  
-**Contact me**: [LinkedIn](www.linkedin.com/in/codewithzaki)
+**LinkedIn**: [www.linkedin.com/in/codewithzaki](https://www.linkedin.com/in/codewithzaki)
 **Date**: August 2025  
 **Portfolio Project**: R for Data Analytics
