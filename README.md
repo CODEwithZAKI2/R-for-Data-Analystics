@@ -12,6 +12,7 @@ This portfolio showcases advanced R programming skills across multiple business 
 R-for-Data-Analystics/
 ├── Project 2/                    # Global Superstore Sales Analysis
 ├── Project 3/                    # HR Analytics: Employee Attrition
+├── Project 4/                    # Netflix Content Analytics: Global Strategy
 └── README.md                     # Portfolio documentation
 ```
 
@@ -77,6 +78,37 @@ R-for-Data-Analystics/
 
 ---
 
+### [Project 4: Netflix Content Analytics - Global Strategy & Cultural Insights](./Project%204)
+
+**Business Domain**: Media & Entertainment Analytics  
+**Dataset**: 8,807 Netflix titles, 12 variables (1925-2021)  
+**Objective**: Analyze Netflix's global content strategy evolution and cultural content preferences
+
+#### 📊 Key Business Questions Analyzed:
+1. **Strategic Evolution**: Netflix's pivot from 79% movies (2010) to 53% TV shows (2021)
+2. **Cultural Strategies**: India (54.7% TV-14), France (41.5% TV-MA), US (29.8% TV-MA) rating preferences
+3. **Duration Correlation**: NC-17 movies average 125 min vs TV-Y at 48 min; family TV shows get 3.8 seasons vs mature at 1.7
+4. **Genre Trends**: International Movies peaked 2018 (340 titles) then declined; International TV Shows steady growth 93→149
+5. **Cultural Profiles**: India (126min movies, Bollywood focus), France (arthouse quality), US (diverse 94min efficiency)
+
+#### 🎯 Strategic Impact:
+- **2018-2020 pivot period**: Clear identification of series-first strategy transformation
+- **Cultural intelligence**: Comprehensive localization strategies for major markets
+- **Genre evolution**: From international licensing to original content production
+- **Geographic expansion**: 73+ countries with tailored content approaches
+
+#### 🛠 Technical Skills Demonstrated:
+- Advanced multi-value field processing with `separate_rows()`
+- Complex date/time manipulation using `lubridate`
+- Multi-dimensional cultural analysis and profiling
+- Advanced text processing for international content
+- Time series trend analysis and strategic pivot detection
+- Multi-panel dashboard creation with `patchwork`
+
+**[View Full Analysis →](./Project%204)**
+
+---
+
 ## 🔧 Technical Expertise Demonstrated
 
 ### Core R Skills
@@ -107,21 +139,28 @@ R-for-Data-Analystics/
 - **38.7% attrition reduction** potential through targeted HR interventions
 - **$2,046 salary gap** quantified for compensation benchmarking
 - **43% seasonal revenue concentration** enabling strategic planning
+- **8,807 Netflix titles analyzed** revealing 2018-2020 strategic pivot period
+- **73+ country content strategies** mapped with cultural preference profiles
 
 ### Strategic Recommendations Delivered
 - **Immediate action items** for crisis states and departments
 - **Discount strategy overhaul** preventing profit destruction
 - **Overtime policy reform** addressing 3x higher attrition risk
 - **Employee retention roadmap** with specific intervention targets
+- **Netflix content localization** strategies for major global markets
+- **Genre portfolio optimization** from licensing to original content focus
 
 ## 🎓 Key Learning Outcomes
 
 This portfolio demonstrates mastery of:
 - **End-to-end data science workflows** from raw data to actionable insights
 - **Business storytelling** through data visualization and strategic recommendations
-- **Industry-specific analytics** across retail, e-commerce, and human resources
+- **Industry-specific analytics** across retail, e-commerce, human resources, and media/entertainment
 - **Professional documentation** and reproducible research practices
 - **Statistical rigor** in analysis methodology and validation
+- **Cultural analytics** and cross-cultural pattern recognition
+- **Time series analysis** and strategic trend identification
+- **Advanced text processing** and multi-value field manipulation
 
 ## 🚀 Future Enhancements
 
